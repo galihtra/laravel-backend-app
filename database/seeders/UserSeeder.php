@@ -14,11 +14,24 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        \App\Models\User::factory(5)->create();
+        \App\Models\User::factory(20)->create();
         User::create([
             'name' => "Galih",
-            'email' => "superuser@gmail.com",
+            'email' => "galih@gmail.com",
             'email_verified_at' => now(),
+            'phone' => '6287738479403',
+            'bio' => 'Gw cakep banget',
+            'role' => 'admin',
+            'password' => Hash::make('123456'),
+        ]);
+
+        User::create([
+            'name' => "Super Admin",
+            'email' => "superadmin@gmail.com",
+            'email_verified_at' => now(),
+            'phone' => '6287738479212',
+            'bio' => 'Lagi males',
+            'role' => 'superadmin',
             'password' => Hash::make('123456'),
         ]);
     }
