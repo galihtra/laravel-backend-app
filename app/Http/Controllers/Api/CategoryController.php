@@ -14,13 +14,14 @@ class CategoryController extends Controller
     public function __construct()
     {
         $this->middleware('auth:sanctum')->except(['index', 'show']);
-        $this->authorizeResource(Category::class,'category');
+        $this->authorizeResource(Category::class, 'category');
     }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
+
         return CategoryResource::collection(Category::all());
     }
 
@@ -29,6 +30,7 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+
         $category = Category::create([
             ...$request->validate([
                 'name' => 'required|string|max:20',
@@ -53,10 +55,12 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        $category->update($request->validate([
-            'name' => 'required|string|max:20',
-            'description' => 'required',
-        ]));
+        $category->update(
+            $request->validate([
+                'name' => 'required|string|max:20',
+                'description' => 'required',
+            ])
+        );
 
         return $category;
     }
