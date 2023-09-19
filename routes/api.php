@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\BannerController;
 use App\Http\Controllers\Api\CallbackController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\OrderController;
@@ -35,4 +36,5 @@ Route::post('orders', [OrderController::class, 'order'])->middleware('auth:sanct
 Route::post('midtrans/notification/handling', [CallbackController::class, 'callback']);
 
 Route::apiResource('categories', CategoryController::class);
+Route::apiResource('banners', BannerController::class);
 Route::apiResource('products', ProductController::class);
