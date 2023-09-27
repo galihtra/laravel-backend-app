@@ -15,10 +15,9 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $categoryId = $request->input('category_id');
-        $products = Product::when(
-            $categoryId,
-            fn ($query, $categoryId) => $query->categoryId($categoryId)
-        )->paginate()->load('category');
+        $userId = $request->input('user_id');
+        $products = Product::where('category_id', 'LIKE', '%' . $categoryId . '%')
+            ->where('user_id', 'LIKE', '%' . $userId . '%')->paginate()->load('category', 'user');
         return ProductResource::collection($products);
     }
 
@@ -46,7 +45,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        $product->load('category','user');
+        $product->load('category', 'user');
         return new ProductResource($product);
     }
 
@@ -64,6 +63,7 @@ class ProductController extends Controller
                 'category_id' => 'required',
             ])
         );
+
         return $product;
     }
 
@@ -73,6 +73,6 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         $product->delete();
-        return response(status:204);
+        return response(status: 204);
     }
 }

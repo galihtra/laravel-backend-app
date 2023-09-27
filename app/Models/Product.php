@@ -10,17 +10,20 @@ class Product extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'description','price','image_url','category_id','user_id'];
+    protected $fillable = ['name', 'description', 'price', 'image_url', 'category_id', 'user_id'];
 
-    public function category() {
+    public function category()
+    {
         return $this->belongsTo(Category::class);
     }
 
-    public function user() {
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 
-    public function scopeCategoryId(Builder $query, string $categoryId): Builder {
-        return $query->where('category_id', 'LIKE', '%' . $categoryId . '%');
+    public function scopeCategoryId(Builder $query, string $categoryId, string $userId): Builder
+    {
+        return $query->where('category_id', 'LIKE', '%' . $categoryId . '%')->where('user_id', 'LIKE', '%' . $userId . '%');
     }
 }
